@@ -84,7 +84,7 @@ const Chats = () => {
   };
 
   return (
-    <div style={{ width: 300 }}>
+    <div style={{ width: 200 }}>
       <div>
         ID: {location.state.id} -{" "}
         <button onClick={() => navigate("/")}>Exit</button>
