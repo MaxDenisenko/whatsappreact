@@ -1,0 +1,72 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.wrapper {
+  background-color: grey;
+  height: 100vh;
+  width: 100%;
+}
+.wrapper-header {
+  position: fixed;
+  top: 0;
+  height: 50px;
+  width: 100vw;
+  background-color: gainsboro;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5px;
+}
+.wrapper-footer {
+  background-color: gainsboro;
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  width: 100vw;
+}
+.wrapper-footer form {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+}
+.wrapper-footer input {
+  width: 100%;
+}
+.wrapper-footer button {
+  height: 100%;
+}
+
+.wrapper-chat {
+  height: calc(100vh-50px);
+  background-color: grey;
+  overflow: scroll;
+  padding-bottom: 70px;
+  padding-top: 70px;
+}
+
+.my-message {
+  background-color: green;
+
+  border-radius: 10px;
+  word-wrap: break-word;
+  max-width: 200px;
+  padding: 5px;
+  margin: 10px;
+  margin-left: auto;
+}
+.other-message {
+  background-color: white;
+  border-radius: 10px;
+  word-wrap: break-word;
+  max-width: 200px;
+  padding: 10px;
+  margin: 10px;
+}
+.other-message span {
+  color: steelblue;
+  font-size: small;
+}

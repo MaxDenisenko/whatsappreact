@@ -1,17 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import "../css/chat.css";
+
 let dialog = [];
 
 const Chats = () => {
   const [message, setMessage] = useState("");
   const [data, setData] = useState({});
   const [dataGet, setDataGet] = useState({});
+  const scrollRef = useRef();
 
+  useEffect(() => {
+    if (data || dataGet) {
+      scrollRef.current.scrollIntoView();
+    }
+  }, [data, dataGet]);
   useEffect(() => {
     const id = setInterval(() => {
       btnGet();
-    }, 6000);
+    }, 2000);
 
     return () => {
       clearInterval(id);
@@ -84,45 +92,44 @@ const Chats = () => {
   };
 
   return (
-    <div style={{ width: 200 }}>
-      <div>
-        ID: {location.state.id} -{" "}
-        <button onClick={() => navigate("/")}>Exit</button>
-        <br />
-        <span>Чат с - {location.state.tel}</span>
+    <div className="wrapper">
+      <div className="wrapper-header">
+        <div>ID: {location.state.id}</div>
+        <div>Чат с {location.state.tel}</div>
+        <button onClick={() => navigate("/")}>Выйти из чата</button>
       </div>
-      <div>
-        <div>
-          {dialog.map((item) => {
-            if (item.chatId === telefon && item.senderName === "Me") {
-              return (
-                <div key={item.idMessage} style={{ textAlign: "right" }}>
-                  {item.senderName} - {item.message}
-                </div>
-              );
-            } else {
-              return (
-                <div key={item.idMessage}>
-                  {item.senderName} - {item.message}
-                </div>
-              );
-            }
-          })}
-        </div>
-      </div>
-      <div>
-        <div id="dialog"></div>
 
-        <br />
-        <textarea
-          placeholder="Text message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <br />
-        <button onClick={btnSend}>Отправить</button>
-        {/* <button onClick={btnGet}>Получить</button> */}
+      <div className="wrapper-chat">
+        {dialog.map((item) => {
+          if (item.chatId === telefon && item.senderName === "Me") {
+            return (
+              <div key={item.idMessage} className="my-message">
+                {item.message}
+              </div>
+            );
+          } else {
+            return (
+              <div key={item.idMessage} className="other-message">
+                <span>{item.senderName}</span>
+                <br />
+                {item.message}
+              </div>
+            );
+          }
+        })}
       </div>
+
+      <div className="wrapper-footer">
+        <form onSubmit={btnSend}>
+          <input
+            placeholder="Text message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button type="submit">Отправить</button>
+        </form>
+      </div>
+      <div ref={scrollRef} className="wrapper-scroll"></div>
     </div>
   );
 };
